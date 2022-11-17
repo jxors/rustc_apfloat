@@ -338,7 +338,13 @@ impl<S: Semantics> fmt::Display for IeeeFloat<S> {
         let width = f.width().unwrap_or(3);
         let alternate = f.alternate();
 
-        match self.category {
+        let category = if self.sig == [ 0 ] {
+            Category::Zero
+        } else {
+            self.category
+        };
+
+        match category {
             Category::Infinity => {
                 if self.sign {
                     return f.write_str("-Inf");

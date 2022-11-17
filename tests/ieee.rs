@@ -6931,3 +6931,11 @@ fn from_bits() {
     let f1 = X87DoubleExtended::from_bits(0x4000C90FDAA22168C235);
     assert_eq!(&f1.to_string(), "3.14159265358979323851");
 }
+
+#[test]
+fn unusual_zero_formatting() {
+    // sig = 0, but exponent is not `Self::MIN_EXP - 1`, so the category is Normal, but the value is effectively Zero.
+    let f = X87DoubleExtended::from_bits(0x84560000000000000000);
+
+    println!("{}", f);
+}
